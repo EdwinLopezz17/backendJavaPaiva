@@ -1,4 +1,4 @@
-package com.learningcenter.learning.application.internal;
+package com.learningcenter.learning.application.internal.queryservices;
 
 import com.learningcenter.learning.domain.model.aggregates.Student;
 import com.learningcenter.learning.domain.model.queries.GetStudentByProfileIdQuery;
@@ -24,4 +24,7 @@ public class StudentQueryServiceImpl implements StudentQueryService {
     public Optional<Student> handle(GetStudentByProfileIdQuery query) {
         return studentRepository.findByProfileId(query.profileId());
     }
+
+
+
 }
