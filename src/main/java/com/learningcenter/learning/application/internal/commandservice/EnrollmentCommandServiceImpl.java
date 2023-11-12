@@ -4,17 +4,26 @@ import com.learningcenter.learning.domain.exceptions.CourseNotFoundException;
 import com.learningcenter.learning.domain.model.aggregates.Course;
 import com.learningcenter.learning.domain.model.aggregates.Enrollment;
 import com.learningcenter.learning.domain.model.commands.*;
+import com.learningcenter.learning.domain.model.valueobjects.TutorialId;
 import com.learningcenter.learning.domain.services.EnrollmentCommandService;
 import com.learningcenter.learning.infraestructure.persistence.jpa.repositories.CourseRepository;
 import com.learningcenter.learning.infraestructure.persistence.jpa.repositories.EnrollmentRepository;
 import com.learningcenter.learning.infraestructure.persistence.jpa.repositories.StudentRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EnrollmentCommandServiceImpl implements EnrollmentCommandService {
 
     private final EnrollmentRepository enrollmentRepository;
     private final CourseRepository courseRepository;
     private final StudentRepository studentRepository;
 
+    /**
+     *
+     * @param enrollmentRepository
+     * @param courseRepository
+     * @param studentRepository
+     */
     public EnrollmentCommandServiceImpl(EnrollmentRepository enrollmentRepository, CourseRepository courseRepository, StudentRepository studentRepository) {
         this.enrollmentRepository = enrollmentRepository;
         this.courseRepository = courseRepository;
@@ -65,7 +74,8 @@ public class EnrollmentCommandServiceImpl implements EnrollmentCommandService {
     @Override
     public Long handle(CompleteTutorialForEnrollmentCommand command) {
         enrollmentRepository.findById(command.enrollmentId()).map(enrollment -> {
-            enrollment.completeTutorial(command.tutorialId());
+            var tutorialId = new TutorialId(command.tutorialId());
+            enrollment.completeTutorial(tutorialId);
             enrollmentRepository.save(enrollment);
             return enrollment.getId();
         }).orElseThrow(()-> new RuntimeException("Enrollment not found"));

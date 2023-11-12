@@ -8,4 +8,7 @@ import java.util.Optional;
 public interface StudentQueryService {
 
     Optional<Student> handle(GetStudentByProfileIdQuery query);
+
+
+
 }

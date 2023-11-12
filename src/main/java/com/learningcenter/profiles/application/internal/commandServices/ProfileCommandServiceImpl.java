@@ -1,16 +1,18 @@
-package com.learningcenter.profiles.application.internal;
+package com.learningcenter.profiles.application.internal.commandServices;
 
 import com.learningcenter.profiles.domain.model.aggregates.Profile;
 import com.learningcenter.profiles.domain.model.commands.CreateProfileCommand;
 import com.learningcenter.profiles.domain.model.valueobjects.EmailAddress;
 import com.learningcenter.profiles.domain.services.ProfileCommandService;
 import com.learningcenter.profiles.infraestructure.persistence.jpa.repositories.ProfileRepository;
+import org.springframework.stereotype.Service;
 
 /**
  * ProfileCommandServiceImpl
  *
  * <p>Service that handles the commands for profile</p>
  */
+@Service
 public class ProfileCommandServiceImpl implements ProfileCommandService {
 
     private  final ProfileRepository profileRepository;
@@ -26,7 +28,7 @@ public class ProfileCommandServiceImpl implements ProfileCommandService {
             throw new IllegalArgumentException("Profile with email "+ command.email()+" already exists");
         });
         var profile = new Profile(command.firstName(), command.lastName(), command.email(), command.street(),
-                command.number(), command.city(), command.state(), command.zipCode());
+                command.number(), command.city(), command.state(), command.zipCode(), command.country());
 
         profileRepository.save(profile);
         return profile.getId();

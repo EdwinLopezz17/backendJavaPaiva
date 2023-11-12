@@ -2,13 +2,15 @@ package com.learningcenter.learning.domain.model.valueobjects;
 
 import com.learningcenter.learning.domain.model.aggregates.Enrollment;
 import com.learningcenter.learning.domain.model.entities.ProgressRecordItem;
-import com.learningcenter.learning.domain.model.entities.Tutorial;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ */
 @Embeddable
 public class ProgressRecord {
 
@@ -20,12 +22,13 @@ public class ProgressRecord {
     }
 
     public  void initializeProgressRecord(Enrollment enrollment, LearningPath learningPath){
-        Tutorial tutorial = learningPath.getFirstTutorialInLearningPathList();
-        ProgressRecordItem progressRecordItem = new ProgressRecordItem(enrollment, tutorial);
+        if(learningPath.isEmpty()) return;
+        TutorialId tutorialId = learningPath.getFirstTutorialInLearningPathList();
+        ProgressRecordItem progressRecordItem = new ProgressRecordItem(enrollment, tutorialId);
 
         progressRecordItemList.add(progressRecordItem);
     }
-    public  void starTutorial( Long tutorialId){
+    public  void starTutorial( TutorialId tutorialId){
         if(hasAnItemInProgress()) throw new IllegalArgumentException("A tutorial is already in progress");
         ProgressRecordItem progressRecordItem = getProgressRecordItemByTutorialId(tutorialId);
         if (progressRecordItem != null){
@@ -38,16 +41,16 @@ public class ProgressRecord {
         }
     }
 
-    public void completeTutorial(Long tutorialId, LearningPath learningPath) {
+    public void completeTutorial(TutorialId tutorialId, LearningPath learningPath) {
         ProgressRecordItem progressRecordItem = getProgressRecordItemByTutorialId(tutorialId);
         if (progressRecordItem != null) {
             progressRecordItem.completed();
         }
         else throw  new IllegalArgumentException("Tutorial with given Id not found in progress record");
 
-        if(learningPath.isLastTutorialInLearningPathList(tutorialId)) return;
+        if(learningPath.isLastTutorialInLearningPathList(tutorialId.tutorialId())) return;
 
-        Tutorial nextTutorial = learningPath.getNextTutorialInLearningPathList(tutorialId);
+        TutorialId nextTutorial = learningPath.getNextTutorialInLearningPathList(tutorialId.tutorialId());
         if(nextTutorial != null){
             ProgressRecordItem nextProgressRecordItem = new ProgressRecordItem(progressRecordItem.getEnrollment(), nextTutorial);
             progressRecordItemList.add(nextProgressRecordItem);
@@ -55,9 +58,9 @@ public class ProgressRecord {
 
     }
 
-    public  ProgressRecordItem getProgressRecordItemByTutorialId(Long tutorialId){
-        return progressRecordItemList.stream().filter(progressRecordItem -> progressRecordItem.getTutorial()
-                .getId().equals(tutorialId)).findFirst().orElse(null);
+    public  ProgressRecordItem getProgressRecordItemByTutorialId(TutorialId tutorialId){
+        return progressRecordItemList.stream().filter(progressRecordItem -> progressRecordItem.getTutorialId()
+                .equals(tutorialId)).findFirst().orElse(null);
     }
 
     public boolean hasAnItemInProgress(){

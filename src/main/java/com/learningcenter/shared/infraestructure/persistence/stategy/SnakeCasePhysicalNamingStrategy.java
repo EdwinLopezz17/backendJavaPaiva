@@ -1,4 +1,4 @@
-package com.learningcenter.shared.infraestructure.persistence.jpa.strategy;
+package com.learningcenter.shared.infraestructure.persistence.stategy;
 
 
 import org.hibernate.boot.model.naming.Identifier;

@@ -5,6 +5,8 @@ import com.learningcenter.profiles.domain.model.valueobjects.PersonName;
 import com.learningcenter.profiles.domain.model.valueobjects.StreetAddress;
 import com.learningcenter.profiles.domain.model.valueobjects.EmailAddress;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.domain.AbstractAggregateRoot;
@@ -14,6 +16,8 @@ import java.util.Date;
 
 @EntityListeners(AuditingEntityListener.class)
 @Entity
+@Getter
+@Setter
 public class Profile extends AbstractAggregateRoot<Profile> {
 
     @Id
@@ -24,7 +28,7 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     private PersonName name;
 
     @Embedded
-    private EmailAddress emailAddress;
+    private EmailAddress email;
 
     @Embedded
     @AttributeOverrides({
@@ -44,10 +48,10 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     private Date updatedAt;
 
     public Profile(String firstName, String lastName, String email, String streetAddress, String number,
-                   String city, String state, String zipcode){
+                   String city, String state, String zipcode, String country){
         this.name = new PersonName(firstName, lastName);
-        this.emailAddress = new EmailAddress(email);
-        this.address = new StreetAddress(streetAddress,number, city, state, zipcode);
+        this.email = new EmailAddress(email);
+        this.address = new StreetAddress(streetAddress,number, city, state, zipcode, country);
     }
 
     public Profile(){
@@ -57,8 +61,8 @@ public class Profile extends AbstractAggregateRoot<Profile> {
         this.name = new PersonName(firstName, lastName);
     }
 
-    public void updatedAddress(String streetAddress, String city, String state, String zipcode){
-        this.address = new StreetAddress(streetAddress, city, state, zipcode);
+    public void updatedAddress(String streetAddress,String number, String city, String state, String zipcode, String country){
+        this.address = new StreetAddress(streetAddress, number, city, state, zipcode, country);
     }
     public String getFullName(){
         return this.name.getFullName();
@@ -68,7 +72,7 @@ public class Profile extends AbstractAggregateRoot<Profile> {
     }
 
     public String getEmailAddress(){
-        return this.emailAddress.address();
+        return this.email.address();
     }
     public Long getId(){
         return this.id;

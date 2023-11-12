@@ -3,6 +3,7 @@ package com.learningcenter.learning.domain.model.aggregates;
 import com.learningcenter.learning.domain.model.valueobjects.AcmeStudentRecordId;
 import com.learningcenter.learning.domain.model.valueobjects.EnrollmentStatus;
 import com.learningcenter.learning.domain.model.valueobjects.ProgressRecord;
+import com.learningcenter.learning.domain.model.valueobjects.TutorialId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -84,7 +85,7 @@ public class Enrollment extends AbstractAggregateRoot<Enrollment> {
     public boolean isReject(){
         return  this.enrollmentStatus == EnrollmentStatus.REJECTED;
     }
-    public void completeTutorial(Long tutorialId){
+    public void completeTutorial(TutorialId tutorialId){
         progressRecord.completeTutorial(tutorialId, course.getLearningPath());
     }
 }
