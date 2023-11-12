@@ -1,4 +1,4 @@
-package com.learningcenter.shared.domain;
+package com.learningcenter.shared.domain.model.entities;
 
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.learningcenter.learning.domain.model.aggregates;
 
 import com.learningcenter.learning.domain.model.valueobjects.LearningPath;
-import com.learningcenter.shared.domain.AuditableModel;
+import com.learningcenter.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

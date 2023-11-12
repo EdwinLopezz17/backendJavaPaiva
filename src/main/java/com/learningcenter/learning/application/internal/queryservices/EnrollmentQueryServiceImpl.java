@@ -12,6 +12,11 @@ import java.util.Optional;
 /**
  * Implementation of EnrollmentQueryService
  *
+ * <p>
+ *     this class is the implementation of the EnrollmentQueryService interface
+ *     It is used by the EnrollmentContext to handle queries on the Enrollment aggregate
+ * </p>
+ *
  */
 public class EnrollmentQueryServiceImpl implements EnrollmentQueryService {
 

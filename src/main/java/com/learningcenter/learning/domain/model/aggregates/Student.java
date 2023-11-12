@@ -3,7 +3,7 @@ package com.learningcenter.learning.domain.model.aggregates;
 import com.learningcenter.learning.domain.model.valueobjects.AcmeStudentRecordId;
 import com.learningcenter.learning.domain.model.valueobjects.ProfileId;
 import com.learningcenter.learning.domain.model.valueobjects.StudentPerformanceMetrics;
-import com.learningcenter.shared.domain.AuditableModel;
+import com.learningcenter.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 
 @Entity

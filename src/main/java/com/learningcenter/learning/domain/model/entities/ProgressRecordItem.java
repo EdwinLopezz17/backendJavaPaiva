@@ -2,7 +2,7 @@ package com.learningcenter.learning.domain.model.entities;
 
 import com.learningcenter.learning.domain.model.aggregates.Enrollment;
 import com.learningcenter.learning.domain.model.valueobjects.ProgressStatus;
-import com.learningcenter.shared.domain.AuditableModel;
+import com.learningcenter.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;

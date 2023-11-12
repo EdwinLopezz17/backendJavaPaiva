@@ -1,7 +1,7 @@
 package com.learningcenter.learning.domain.model.entities;
 
 import com.learningcenter.learning.domain.model.aggregates.Course;
-import com.learningcenter.shared.domain.AuditableModel;
+import com.learningcenter.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 
