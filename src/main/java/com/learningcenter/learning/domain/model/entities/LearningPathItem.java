@@ -4,8 +4,11 @@ import com.learningcenter.learning.domain.model.aggregates.Course;
 import com.learningcenter.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class LearningPathItem extends AuditableModel {
     @Getter
     @Id

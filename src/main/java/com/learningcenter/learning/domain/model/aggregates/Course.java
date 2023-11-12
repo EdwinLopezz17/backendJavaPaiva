@@ -6,11 +6,14 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Represents a course
  */
 @Entity
+@Getter
+@Setter
 public class Course extends AuditableModel {
     @Id
     private  Long id;
