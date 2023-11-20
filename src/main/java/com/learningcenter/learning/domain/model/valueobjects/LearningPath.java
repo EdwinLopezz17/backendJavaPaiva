@@ -23,7 +23,7 @@ public class LearningPath {
      * @param tutorialId the tutorial to add
      * @param nextItem the id of the item before which the new item should be added
      */
-    public void addItem(Course course, TutorialId tutorialId, LearningPathItem nextItem){
+    public void addItem(Course course, Long tutorialId, LearningPathItem nextItem){
         LearningPathItem learningPathItem = new LearningPathItem(course, tutorialId, nextItem);
         learningPathItemList.add(learningPathItem);
     }
@@ -37,7 +37,7 @@ public class LearningPath {
      * @param course the courses to add
      * @param tutorialId the tutorial to add
      */
-    public void addItem(Course course, TutorialId tutorialId){
+    public void addItem(Course course, Long tutorialId){
         LearningPathItem originalLastItem = getLastItemInLearningPathList();
         LearningPathItem learningPathItem = new LearningPathItem(course, tutorialId, null);
         learningPathItemList.add(learningPathItem);
@@ -46,16 +46,16 @@ public class LearningPath {
     }
 
     public Long getFirstTutorialIdInLearningPathList(){
-        return learningPathItemList.get(0).getTutorialId().tutorialId();
+        return learningPathItemList.get(0).getTutorialId();
     }
-    public TutorialId getFirstTutorialInLearningPathList(){
+    public Long getFirstTutorialInLearningPathList(){
         return learningPathItemList.get(0).getTutorialId();
     }
     private  LearningPathItem getLearningPathItemWithTutorial(Long tutorialId){
-        return learningPathItemList.stream().filter(learningPathItem -> learningPathItem.getTutorialId().tutorialId().equals(tutorialId))
+        return learningPathItemList.stream().filter(learningPathItem -> learningPathItem.getTutorialId().equals(tutorialId))
                 .findFirst().orElse(null);
     }
-    public TutorialId getNextTutorialInLearningPathList(Long currentTutorialId){
+    public Long getNextTutorialInLearningPathList(Long currentTutorialId){
         LearningPathItem item = getLearningPathItemWithTutorial(currentTutorialId);
         return item!=null ? item.getTutorialId() : null;
     }

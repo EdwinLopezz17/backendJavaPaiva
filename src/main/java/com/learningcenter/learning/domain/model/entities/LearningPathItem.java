@@ -4,6 +4,7 @@ import com.learningcenter.learning.domain.model.aggregates.Course;
 import com.learningcenter.learning.domain.model.valueobjects.TutorialId;
 import com.learningcenter.shared.domain.model.entities.AuditableModel;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,16 +24,16 @@ public class LearningPathItem extends AuditableModel {
     @JoinColumn(name="next_item_id")
     private LearningPathItem nextItem;
 
-    @Embedded
-    private TutorialId tutorialId;
+    @NotNull
+    private Long tutorialId;
 
-    public LearningPathItem(Course course, TutorialId tutorialId, LearningPathItem nextItem){
+    public LearningPathItem(Course course, Long tutorialId, LearningPathItem nextItem){
         this.course = course;
         this.tutorialId = tutorialId;
         this.nextItem = nextItem;
     }
     public LearningPathItem(){
-        this.tutorialId = new TutorialId();
+        this.tutorialId = 0L;
         this.course = null;
         this.nextItem = null;
     }
